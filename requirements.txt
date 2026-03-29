@@ -23,7 +23,7 @@ dataclasses-json==0.6.7
 dnspython==2.8.0
 email-validator==2.3.0
 et_xmlfile==2.0.0
-faiss-cpu==1.11.0.post1
+faiss-cpu==1.13.2
 fastapi==0.116.1
 fastapi-cli==0.0.13
 fastapi-cloud-cli==0.2.0

@@ -1,5 +1,5 @@
-// const BASE_URL = 'https://finance-ai.onrender.com';
-const BASE_URL = 'http://localhost:8000';
+const BASE_URL = 'https://finance-ai-6q4o.onrender.com';
+// const BASE_URL = 'http://localhost:8000';
 
 async function getJSON(path, opts = {}) {
   const res = await fetch(`${BASE_URL}${path}`, opts);

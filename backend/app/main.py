@@ -31,9 +31,6 @@ app.add_middleware(
 )
 
 # --- API Endpoints ---
-@app.get("/")
-def read_root():
-    return {"status": "FinanceAI Backend is running"}
 
 @app.get("/api/dashboard/overview")
 def get_dashboard_overview():

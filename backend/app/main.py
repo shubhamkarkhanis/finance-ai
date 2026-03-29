@@ -82,3 +82,36 @@ def get_crypto_market_data():
     """Endpoint for the cryptocurrency market page."""
     symbols = ("BTC/USD", "ETH/USD", "SOL/USD", "XRP/USD", "DOGE/USD")
     return financial_data.get_crypto_data(symbols)
+
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
+import os
+
+# 1. Determine the path to the Vite 'dist' directory
+# main.py is in backend/app/, so we go up two levels to reach the root, then into 'dist'
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DIST_DIR = os.path.join(BASE_DIR, "../../dist")
+
+# 2. Mount static files and handle React Router Catch-All
+if os.path.exists(DIST_DIR):
+    # Serve static assets specifically
+    assets_dir = os.path.join(DIST_DIR, "assets")
+    if os.path.exists(assets_dir):
+        app.mount("/assets", StaticFiles(directory=assets_dir), name="assets")
+
+    # Catch-all route to serve files or fallback to index.html for React Router
+    @app.get("/{full_path:path}")
+    async def serve_frontend(full_path: str):
+        file_path = os.path.join(DIST_DIR, full_path)
+        
+        # If the requested file exists (like vite.svg, robots.txt), serve it
+        if os.path.isfile(file_path):
+            return FileResponse(file_path)
+        
+        # Otherwise, serve index.html to let React Router handle the path
+        index_path = os.path.join(DIST_DIR, "index.html")
+        if os.path.exists(index_path):
+            return FileResponse(index_path)
+        return {"error": "Frontend build not found."}
+else:
+    print(f"Warning: Frontend build directory not found at {DIST_DIR}")

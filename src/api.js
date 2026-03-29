@@ -1,4 +1,4 @@
-const BASE_URL = 'https://finance-ai.onrender.com';
+const BASE_URL = 'https://finance-ai-6q4o.onrender.com';
 // const BASE_URL = 'http://localhost:8000';
 
 async function getJSON(path, opts = {}) {
